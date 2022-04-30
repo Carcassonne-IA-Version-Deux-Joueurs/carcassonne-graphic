@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://asset/emplacement.png" type="Texture" id=1]
+[ext_resource path="res://scene/Element2D.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 8 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Element2D" type="Area2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Element2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Element2D"]
+texture = ExtResource( 1 )
+
+[connection signal="input_event" from="Element2D" to="Element2D" method="_on_Element2D_input_event"]
