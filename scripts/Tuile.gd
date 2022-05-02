@@ -61,6 +61,7 @@ func afficher_element():
 		element_list.append(element_obj)
 		element_obj.get_child(0).connect("id_send", self, "set_element_id")
 		add_child(element_obj);
+		print(carcassonne.get_points_espere_element(id, 1))
 		id += 1
 
 func set_element_id(id, position):

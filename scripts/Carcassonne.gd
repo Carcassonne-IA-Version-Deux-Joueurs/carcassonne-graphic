@@ -27,6 +27,9 @@ func _ready():
 	token = 1
 		
 func _process(delta):
+	joueur1.update_score(carcassonne.get_joueur_score(1))
+	joueur2.update_score(carcassonne.get_joueur_score(2))
+	$Camera2D/Label.update_score()
 	if token == 1:
 		joueur()
 		token = 0
@@ -68,6 +71,7 @@ func fin_tour_joueur():
 	
 	print("update list")
 	update_meeple_list(1)
+
 	#token = 2
 	token = 1
 

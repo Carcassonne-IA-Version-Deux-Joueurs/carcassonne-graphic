@@ -24,11 +24,6 @@ config/name="carcasonne_graphic"
 run/main_scene="res://scene/Carcassonne.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/stretch/mode="viewport"
-window/stretch/aspect="keep"
-
 [input]
 
 ui_accept={
