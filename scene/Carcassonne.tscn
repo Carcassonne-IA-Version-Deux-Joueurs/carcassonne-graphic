@@ -33,6 +33,7 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="TileMap" type="TileMap" parent="."]
+scale = Vector2( 5, 5 )
 tile_set = SubResource( 1 )
 cell_size = Vector2( 50, 50 )
 cell_custom_transform = Transform2D( 50, 50, 0, 64, 0, 0 )

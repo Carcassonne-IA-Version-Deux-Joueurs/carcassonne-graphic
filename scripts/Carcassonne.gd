@@ -157,3 +157,7 @@ func _input(event):
 				if(target_zoom < Vector2(3,3)): 
 					target_zoom = target_zoom + Vector2(0.05,0.05)
 	$Camera2D.zoom = target_zoom;
+
+
+func _on_ButtonRetour_pressed():
+	pass # Replace with function body.

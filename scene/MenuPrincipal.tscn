@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/ButtonQuit.gd" type="Script" id=1]
+[ext_resource path="res://scripts/ButtonPlay.gd" type="Script" id=2]
+[ext_resource path="res://scripts/ButtonOption.gd" type="Script" id=3]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -26,12 +28,14 @@ __meta__ = {
 margin_right = 399.0
 margin_bottom = 20.0
 text = "Play"
+script = ExtResource( 2 )
 
 [node name="ButtonOption" type="Button" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 399.0
 margin_bottom = 44.0
 text = "Option"
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -57,3 +61,7 @@ text = "Jeu Carcassonne Version 2 joueurs"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="pressed" from="VBoxContainer/ButtonPlay" to="VBoxContainer/ButtonPlay" method="_on_ButtonPlay_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonOption" to="VBoxContainer/ButtonOption" method="_on_ButtonOption_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonQuit" to="VBoxContainer/ButtonQuit" method="_on_ButtonQuit_pressed"]

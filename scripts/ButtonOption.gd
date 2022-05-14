@@ -1,4 +1,4 @@
-extends Area2D
+extends Button
 
 
 # Declare member variables here. Examples:
@@ -16,5 +16,6 @@ func _ready():
 #	pass
 
 
-func _on_Area2D_input_event(viewport, event, shape_idx):
-	print("hello")
+func _on_ButtonOption_pressed():
+	var scene = load("res://scene/Option.tscn")
+	get_tree().change_scene_to(scene)
