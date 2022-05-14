@@ -14,14 +14,14 @@ var id_element = -1 # -1 si rien n'est séléctionné
 
 func _ready():
 	position_grille = Vector2(71 + (position.x/255), 71 + ((-position.y)/255))
-	 #print(position)
-	carcassonne = get_tree().get_root().get_node("Carcassonne").carcassonne
+	print(position)
+	carcassonne = get_tree().get_root().get_child(0).get_child(0).get_node("ViewportContainer").get_node("Viewport").get_node("Carcassonne").carcassonne
 	var list_orientation = carcassonne.get_coord_emplacement_libre()
 	if list_orientation.has(position_grille):
 		vector_orientation = list_orientation[position_grille]
 		rotation += ((PI/2) * vector_orientation[0])
 	get_parent().get_child(3).hide()
-	
+
 func do_rotation():
 	orientation = (orientation + 1) % vector_orientation.size()
 	#print(vector_orientation[orientation])
@@ -38,12 +38,6 @@ func poser_tuile():
 	print("nbr pion disponible joueur")
 	print(7 - carcassonne.get_nbr_pion_joueur(1))
 	afficher_element()
-	
-func _on_Area2D_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton:
-		if event.is_pressed():
-			if event.button_index == BUTTON_LEFT:
-				emit_signal("tuile_coord", self)
 
 func afficher_element():
 	print("Element disponible")
@@ -80,3 +74,11 @@ func get_element_coord():
 func remove_element():
 	for element_obj in element_list:
 		remove_child(element_obj)
+
+func _on_Area2D_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			if event.button_index == BUTTON_LEFT:
+				print("hello")
+				emit_signal("tuile_coord", self)
+

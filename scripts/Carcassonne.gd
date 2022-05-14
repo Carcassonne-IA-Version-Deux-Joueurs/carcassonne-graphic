@@ -2,7 +2,7 @@ extends Node2D
 
 onready var Tuile2D = preload("res://scene/Tuile2D.tscn")
 onready var TuileIcon2D = preload("res://scene/TuileIcon2D.tscn")
-onready var Meeple2D = preload("res://Meeple2D.tscn")
+onready var Meeple2D = preload("res://scene/Meeple2D.tscn")
 
 var carcassonne : Carcassonne
 
@@ -29,7 +29,7 @@ func _ready():
 func _process(delta):
 	joueur1.update_score(carcassonne.get_joueur_score(1))
 	joueur2.update_score(carcassonne.get_joueur_score(2))
-	$Camera2D/Label.update_score()
+	#$Camera2D/Label.update_score()
 	if token == 1:
 		joueur()
 		token = 0
@@ -154,5 +154,6 @@ func _input(event):
 				if(target_zoom > Vector2(0.4,0.4)): 
 					target_zoom = target_zoom - Vector2(0.05,0.05)
 			elif event.button_index == BUTTON_WHEEL_DOWN:
-				target_zoom = target_zoom + Vector2(0.05,0.05)
+				if(target_zoom < Vector2(3,3)): 
+					target_zoom = target_zoom + Vector2(0.05,0.05)
 	$Camera2D.zoom = target_zoom;

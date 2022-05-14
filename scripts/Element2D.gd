@@ -4,7 +4,6 @@ var id = 0
 
 signal id_send;
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 	

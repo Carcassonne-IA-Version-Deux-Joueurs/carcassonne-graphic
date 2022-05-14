@@ -1,0 +1,29 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1027.0
+margin_bottom = 603.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.047
+anchor_top = 0.027
+anchor_right = 0.047
+anchor_bottom = 0.027
+margin_left = 68.872
+margin_top = 77.8
+margin_right = 366.872
+margin_bottom = 143.8
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "hello
+everyone
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
