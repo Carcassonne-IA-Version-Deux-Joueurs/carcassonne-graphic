@@ -7,7 +7,7 @@ func _ready():
 	current = true
 	target_position = Vector2(0,0);
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_pressed("ui_right"):
 		target_position .x = target_position .x + 10
 	if Input.is_action_pressed("ui_left"):

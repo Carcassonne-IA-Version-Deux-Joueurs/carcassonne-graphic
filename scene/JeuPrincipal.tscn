@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/ButtonRetour.gd" type="Script" id=1]
 [ext_resource path="res://scene/Carcassonne.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scene/LabelJoueur.gd" type="Script" id=3]
+[ext_resource path="res://scene/LabelScore.gd" type="Script" id=4]
 
 [node name="Jeu_Principal" type="Control"]
 anchor_right = 1.0
@@ -12,7 +14,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 39.8162
+margin_right = 56.0
+margin_bottom = 799.816
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1024, 800 )
+handle_input_locally = false
+render_target_update_mode = 3
+physics_object_picking = true
+
+[node name="Carcassonne" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
+z_index = 1
+
+[node name="HeadBand" type="ColorRect" parent="."]
 margin_right = 1024.0
 margin_bottom = 40.0
 color = Color( 1, 0.945098, 0.341176, 1 )
@@ -20,45 +43,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ColorRect"]
-anchor_left = 0.047
-anchor_top = 0.027
-anchor_right = 0.047
-anchor_bottom = 0.027
-margin_left = -48.128
-margin_top = -1.08
-margin_right = 249.872
-margin_bottom = 38.92
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "Affichage du score"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ViewportContainer" type="ViewportContainer" parent="ColorRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 40.0
-margin_right = 56.0
-margin_bottom = 800.0
-mouse_filter = 2
-input_pass_on_modal_close_click = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Viewport" type="Viewport" parent="ColorRect/ViewportContainer"]
-size = Vector2( 1024, 800 )
-handle_input_locally = false
-render_target_update_mode = 3
-physics_object_picking = true
-
-[node name="Carcassonne" parent="ColorRect/ViewportContainer/Viewport" instance=ExtResource( 2 )]
-z_index = 1
-
-[node name="ButtonRetour" type="Button" parent="."]
+[node name="ButtonRetour" type="Button" parent="HeadBand"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -173.0
@@ -69,4 +54,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="ButtonRetour" to="ButtonRetour" method="_on_ButtonRetour_pressed"]
+[node name="HeadBandText" type="RichTextLabel" parent="HeadBand"]
+margin_right = 851.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelJoueur" type="Label" parent="HeadBand/HeadBandText"]
+anchor_left = 0.047
+anchor_top = 0.027
+anchor_right = 0.047
+anchor_bottom = 0.027
+margin_left = -38.997
+margin_top = -0.08
+margin_right = 220.003
+margin_bottom = 37.92
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelScore" type="Label" parent="HeadBand/HeadBandText"]
+margin_left = 253.0
+margin_top = 3.0
+margin_right = 473.0
+margin_bottom = 39.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="HeadBand/ButtonRetour" to="HeadBand/ButtonRetour" method="_on_ButtonRetour_pressed"]

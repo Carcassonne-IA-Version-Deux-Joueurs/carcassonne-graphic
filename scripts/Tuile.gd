@@ -14,7 +14,7 @@ var id_element = -1 # -1 si rien n'est séléctionné
 
 func _ready():
 	position_grille = Vector2(71 + (position.x/255), 71 + ((-position.y)/255))
-	carcassonne = get_tree().get_root().get_child(0).get_child(0).get_node("ViewportContainer").get_node("Viewport").get_node("Carcassonne").carcassonne
+	carcassonne = get_tree().get_root().get_child(0).get_node("ViewportContainer").get_node("Viewport").get_node("Carcassonne").carcassonne
 	var list_orientation = carcassonne.get_coord_emplacement_libre()
 	if list_orientation.has(position_grille):
 		vector_orientation = list_orientation[position_grille]
@@ -28,9 +28,9 @@ func do_rotation():
 	rotation += ((PI/2) * vector_orientation[orientation])
 
 func poser_tuile():
-	#print("poser tuile")
-	#print(position_grille)
-	#print(vector_orientation[orientation])
+	print("poser tuile")
+	print(position_grille)
+	print(vector_orientation[orientation])
 	carcassonne.poser_tuile_pioche(position_grille.x, position_grille.y, vector_orientation[orientation])
 	get_parent().get_node("ButtonRotation").hide()
 	get_parent().get_node("ButtonValiderTuile").hide()
@@ -74,7 +74,7 @@ func remove_element():
 	for element_obj in element_list:
 		remove_child(element_obj)
 
-func _on_Area2D_input_event(viewport, event, shape_idx):
+func _on_TuileArea2D_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == BUTTON_LEFT:

@@ -16,6 +16,9 @@ var obj_tuiles_libre : Array
 var joueur1 : Joueur
 var joueur2 : Joueur
 
+onready var labelJoueur = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelJoueur")
+onready var labelScore  = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelScore")
+
 func _ready():
 	target_zoom = $Camera2D.zoom
 	carcassonne = Carcassonne.new()
@@ -23,23 +26,23 @@ func _ready():
 	init_plateau()
 	joueur1 = Joueur.new()
 	joueur2 = Joueur.new()
-	
-	token = 1
-		
-func _process(delta):
+	chose_player()
+
+func chose_player():
 	joueur1.update_score(carcassonne.get_joueur_score(1))
 	joueur2.update_score(carcassonne.get_joueur_score(2))
-	#$Camera2D/Label.update_score()
-	if token == 1:
-		joueur()
-		token = 0
-	if token == 2:
-		robot()
-		token = 0
+	labelScore.update_text(1, joueur1.score)
+	labelScore.update_text(2, joueur2.score)
 	
-func joueur():
+	if token == 0:
+		joueur(token + 1)
+	if token == 1:
+		joueur(token + 1)
+	
+func joueur(id):
 	piocher_tuile();
 	carcassonne.calcul_emplacement_libre()
+	labelJoueur.update_text(id)
 	placer_tuile_emplacement_libre()
 	for tuile in obj_tuiles_libre:
 		tuile.connect("tuile_coord", self, "position_tuile") # connection des tuiles à cliquer pour le joueur
@@ -53,8 +56,9 @@ func set_icon_mouse():
 func unset_icon_mouse():
 	remove_child(tuileicon)
 	
-func robot():
+func robot(id):
 	piocher_tuile();
+	labelJoueur.update_text(id)
 	carcassonne.calcul_emplacement_libre()
 	placer_tuile_emplacement_libre()
 	# robot doing...
@@ -71,9 +75,10 @@ func fin_tour_joueur():
 	
 	print("update list")
 	update_meeple_list(1)
+	print(token)
+	token = (token + 1) % 2
+	chose_player()
 
-	#token = 2
-	token = 1
 
 func fin_tour_robot():
 	token = 1
@@ -108,7 +113,7 @@ func piocher_tuile():
 
 func placer_tuile_emplacement_libre():
 	var array_coord : Dictionary = carcassonne.get_coord_emplacement_libre()
-	#print(carcassonne.get_coord_emplacement_libre())
+	print_debug(carcassonne.get_coord_emplacement_libre())
 	for coord in array_coord:
 		var tuile_obj = Tuile2D.instance()
 		var tuile = tuile_obj.get_child(0)
