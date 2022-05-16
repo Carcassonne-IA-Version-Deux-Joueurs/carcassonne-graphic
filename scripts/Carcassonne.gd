@@ -9,15 +9,22 @@ var carcassonne : Carcassonne
 var tuileicon
 var token = 0; # 0 neutre, 1 joueur, 2 robot
 
-var target_zoom : Vector2
+var nbr_tour = 0
+
+var target_zoom = Vector2(1,1)
 
 var obj_tuiles_libre : Array
 
 var joueur1 : Joueur
 var joueur2 : Joueur
 
+# Initilisations des Labels du bandeau
 onready var labelJoueur = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelJoueur")
 onready var labelScore  = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelScore")
+onready var labelJoueurGagnant = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelJoueurGagnant")
+onready var labelTuileRestant  = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelTuileRestant")
+onready var labelFinDuJeu  = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelFinDuJeu")
+onready var labelNbrMeepleRestant  = get_tree().get_root().get_node("Jeu_Principal").get_node("HeadBand").get_node("HeadBandText").get_node("LabelNbrMeepleRestant")
 
 func _ready():
 	target_zoom = $Camera2D.zoom
@@ -26,19 +33,47 @@ func _ready():
 	init_plateau()
 	joueur1 = Joueur.new()
 	joueur2 = Joueur.new()
+	nbr_tour = 0
+	labelFinDuJeu.hide()
 	chose_player()
 
 func chose_player():
+	nbr_tour = nbr_tour + 1
+	labelTuileRestant.update_text(nbr_tour)
+	
+	if(nbr_tour == 71):
+		fin_du_jeu()
+	else:
+		joueur1.update_score(carcassonne.get_joueur_score(1))
+		joueur2.update_score(carcassonne.get_joueur_score(2))
+		labelScore.update_text(1, joueur1.score)
+		labelScore.update_text(2, joueur2.score)
+	
+		labelJoueurGagnant.update_text()
+		
+		joueur1.update_nbr_meeple(carcassonne.get_nbr_pion_joueur(1))
+		joueur2.update_nbr_meeple(carcassonne.get_nbr_pion_joueur(2))
+		labelNbrMeepleRestant.update_text(1, joueur1.nbr_meeple)
+		labelNbrMeepleRestant.update_text(2, joueur2.nbr_meeple)
+		
+		if token == 0:
+			joueur(token + 1)
+		if token == 1:
+			joueur(token + 1)
+
+func get_nbr_meeple(joueur_id):
+	return carcassonne.get_nbr_pion_joueur(joueur_id)
+
+func fin_du_jeu():
+	labelFinDuJeu.show()
+	carcassonne.evaluation_points_meeple_final()
 	joueur1.update_score(carcassonne.get_joueur_score(1))
 	joueur2.update_score(carcassonne.get_joueur_score(2))
 	labelScore.update_text(1, joueur1.score)
 	labelScore.update_text(2, joueur2.score)
-	
-	if token == 0:
-		joueur(token + 1)
-	if token == 1:
-		joueur(token + 1)
-	
+	labelJoueurGagnant.update_text()
+	print_debug("fin du jeu")
+
 func joueur(id):
 	piocher_tuile();
 	carcassonne.calcul_emplacement_libre()
@@ -74,7 +109,7 @@ func fin_tour_joueur():
 	print(carcassonne.get_meeple_pose_array(1))
 	
 	print("update list")
-	update_meeple_list(1)
+	update_meeple_list(get_joueur_courant())
 	print(token)
 	token = (token + 1) % 2
 	chose_player()
@@ -127,9 +162,9 @@ func placer_tuile_emplacement_libre():
 		obj_tuiles_libre.append(tuile)
 
 func poser_meeple(coord : Vector2, joueur_id, indice_tableau):
-	print("poser meeple")
+	print("poser meeple" + str(joueur_id))
 	var meeple_obj = Meeple2D.instance()
-	meeple_obj.get_node("Sprite").texture = load("res://asset/meeple.png")
+	meeple_obj.get_node("MeepleSprite").set_texture_meeple(joueur_id)
 	meeple_obj.position = coord
 	get_joueur(joueur_id).add_meeple(meeple_obj,indice_tableau)
 	add_child(meeple_obj)
@@ -157,12 +192,11 @@ func _input(event):
 		if event.is_pressed():
 			if event.button_index == BUTTON_WHEEL_UP:
 				if(target_zoom > Vector2(0.4,0.4)): 
-					target_zoom = target_zoom - Vector2(0.05,0.05)
+					target_zoom = target_zoom - Vector2(0.1,0.1)
 			elif event.button_index == BUTTON_WHEEL_DOWN:
-				if(target_zoom < Vector2(3,3)): 
-					target_zoom = target_zoom + Vector2(0.05,0.05)
-	$Camera2D.zoom = target_zoom;
+				if(target_zoom < Vector2(5,5)): 
+					target_zoom = target_zoom + Vector2(0.1,0.1)
+	$Camera2D.set_target_zoom(target_zoom)
 
-
-func _on_ButtonRetour_pressed():
-	pass # Replace with function body.
+func get_joueur_courant():
+	return token + 1

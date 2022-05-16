@@ -29,6 +29,10 @@ config/icon="res://icon.png"
 window/size/resizable=false
 window/stretch/mode="viewport"
 
+[editor]
+
+script_templates_search_path="res://scripts"
+
 [input]
 
 ui_accept={

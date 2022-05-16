@@ -12,4 +12,4 @@ func update_text(joueur_id,score):
 		score_joueur1 = score
 	if(joueur_id == 2):
 		score_joueur2 = score
-	text = "Score joueur 1:" + str(score_joueur1) + "\nScore joueur 2:" + str(score_joueur2) 
+	text = "Score joueur 1: " + str(score_joueur1) + "\nScore joueur 2: " + str(score_joueur2) 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/meeple.png-a55a96ebbdab486c3d442aee6c886185.stex"
+path="res://.import/meeple_j1.png-b8e090a69082d7dba48db9790a262617.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/meeple.png"
-dest_files=[ "res://.import/meeple.png-a55a96ebbdab486c3d442aee6c886185.stex" ]
+source_file="res://asset/meeple_j1.png"
+dest_files=[ "res://.import/meeple_j1.png-b8e090a69082d7dba48db9790a262617.stex" ]
 
 [params]
 
@@ -28,7 +28,6 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
-process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

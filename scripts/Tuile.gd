@@ -36,7 +36,6 @@ func poser_tuile():
 	get_parent().get_node("ButtonValiderTuile").hide()
 	print("nbr pion disponible joueur")
 	print(7 - carcassonne.get_nbr_pion_joueur(1))
-	afficher_element()
 
 func afficher_element():
 	print("Element disponible")
