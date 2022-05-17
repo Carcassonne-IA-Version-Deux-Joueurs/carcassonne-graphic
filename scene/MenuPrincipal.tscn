@@ -57,6 +57,7 @@ margin_left = -199.0
 margin_top = 28.0
 margin_right = 195.0
 margin_bottom = 96.0
+custom_constants/separation = 18
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -67,11 +68,14 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 text = "Play"
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ButtonOption" type="Button" parent="VBoxContainer"]
-margin_top = 54.0
+margin_top = 68.0
 margin_right = 394.0
-margin_bottom = 94.0
+margin_bottom = 108.0
 rect_min_size = Vector2( 0, 40 )
 text = "Option"
 script = ExtResource( 3 )
@@ -80,9 +84,9 @@ __meta__ = {
 }
 
 [node name="ButtonQuit" type="Button" parent="VBoxContainer"]
-margin_top = 98.0
+margin_top = 126.0
 margin_right = 394.0
-margin_bottom = 138.0
+margin_bottom = 166.0
 rect_min_size = Vector2( 0, 40 )
 text = "Quitter"
 script = ExtResource( 1 )

@@ -109,7 +109,8 @@ func fin_tour_joueur():
 	print(carcassonne.get_meeple_pose_array(1))
 	
 	print("update list")
-	update_meeple_list(get_joueur_courant())
+	update_meeple_list(1)
+	update_meeple_list(2)
 	print(token)
 	token = (token + 1) % 2
 	chose_player()
