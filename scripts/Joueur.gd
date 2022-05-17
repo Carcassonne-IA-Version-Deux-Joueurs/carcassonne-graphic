@@ -6,6 +6,8 @@ onready var score = 0
 onready var nbr_meeple = 7
 var list_meeple : Array = [null, null, null, null, null, null, null]
 
+var type_joueur : String
+
 func Joueur():
 	pass
 
@@ -17,3 +19,6 @@ func update_score(score):
 
 func update_nbr_meeple(nbr_meeple):
 	self.nbr_meeple = nbr_meeple
+
+func set_type_joueur(type_joueur_entry):
+	self.type_joueur = type_joueur_entry

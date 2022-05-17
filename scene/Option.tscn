@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/ButtonRetour.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Option.gd" type="Script" id=2]
 [ext_resource path="res://asset/texture/texture1.png" type="Texture" id=3]
 [ext_resource path="res://asset/background.png" type="Texture" id=4]
-[ext_resource path="res://scene/OptionButtonChosePlayer1.gd" type="Script" id=5]
-[ext_resource path="res://scene/OptionButtonChoseDifficulty1.gd" type="Script" id=6]
+[ext_resource path="res://scripts/OptionButtonChosePlayer1.gd" type="Script" id=5]
+[ext_resource path="res://scripts/OptionButtonChoseDifficulty1.gd" type="Script" id=6]
 [ext_resource path="res://asset/texture/texture2.png" type="Texture" id=7]
+[ext_resource path="res://scripts/InputOutput.gd" type="Script" id=8]
 
 [sub_resource type="TileSet" id=1]
 0/name = "texture1.png 0"
@@ -255,9 +256,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="InputOutput" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

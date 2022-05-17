@@ -5,7 +5,7 @@ signal tuile_coord
 onready var Element2D = load("res://scene/Element2D.tscn")
 
 var position_grille
-onready var orientation = 0
+var orientation = 0
 var vector_orientation
 var element_list : Array
 var element_position 
@@ -34,8 +34,6 @@ func poser_tuile():
 	carcassonne.poser_tuile_pioche(position_grille.x, position_grille.y, vector_orientation[orientation])
 	get_parent().get_node("ButtonRotation").hide()
 	get_parent().get_node("ButtonValiderTuile").hide()
-	print("nbr pion disponible joueur")
-	print(7 - carcassonne.get_nbr_pion_joueur(1))
 
 func afficher_element():
 	print("Element disponible")

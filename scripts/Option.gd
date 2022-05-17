@@ -1,8 +1,5 @@
 extends Control
 
-var save_path = "user://carcassonne_config.data"
-
-var key = "carcassonne_key"
 
 var Game_Data = {
 	"type_joueur_1" : "HUMAIN",
@@ -17,32 +14,8 @@ onready var OptionButtonChosePlayer1 = get_node("VBoxContainer/OptionJ1/OptionBu
 onready var OptionButtonChosePlayer2 = get_node("VBoxContainer/OptionJ2/OptionButtonChosePlayer2")
 
 func _ready():
-	load_data()
+	Game_Data = get_node("InputOutput").load_game_data()
 	update_options_joueurs()
-
-func _on_ButtonSave_pressed():
-	print(Game_Data)
-	var file = File.new()
-	var error = file.open_encrypted_with_pass(save_path, File.WRITE, key)
-	if error == OK:
-		file.store_var(Game_Data)
-		file.close()
-		print_debug("Options are stored at " + save_path)
-	else:
-		print_debug("Can't store data at " + save_path)
-
-func load_data():
-	var file = File.new()
-	if file.file_exists(save_path):
-		var error = file.open_encrypted_with_pass(save_path, File.READ, key)
-		if error == OK:
-			Game_Data = file.get_var()
-			file.close()
-			print_debug("options are loaded")
-		else:
-			print_debug("Can't open data" + save_path)
-	else:
-		print_debug("data not found: default setting")
 
 func _on_OptionButtonChosePlayer1_item_selected(index):
 	if(index == 0):
@@ -79,7 +52,6 @@ func _on_OptionButtonChoseDifficulty2_item_selected(index):
 	update_options_joueurs()
 
 func update_options_joueurs():
-	print(Game_Data)
 	if(Game_Data.type_joueur_1 == "HUMAIN"):
 		OptionButtonChosePlayer1.select(0)
 		OptionButtonChoseDifficulty1.hide()
@@ -103,3 +75,6 @@ func update_options_joueurs():
 			OptionButtonChoseDifficulty2.select(0)
 		if(Game_Data.difficult_joueur_2 == "NORMAL"):
 			OptionButtonChoseDifficulty2.select(1)
+
+func _on_ButtonSave_pressed():
+	get_node("InputOutput").save_game_data(Game_Data)
