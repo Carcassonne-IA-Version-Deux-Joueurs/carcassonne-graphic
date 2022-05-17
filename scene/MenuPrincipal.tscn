@@ -1,12 +1,49 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/ButtonQuit.gd" type="Script" id=1]
 [ext_resource path="res://scripts/ButtonPlay.gd" type="Script" id=2]
 [ext_resource path="res://scripts/ButtonOption.gd" type="Script" id=3]
+[ext_resource path="res://asset/menubackground.jpg" type="Texture" id=4]
+[ext_resource path="res://asset/background_carcassonne.png" type="Texture" id=5]
+[ext_resource path="res://asset/carcassonne-logo.png" type="Texture" id=6]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Textureciel" type="TextureRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1280.0
+rect_scale = Vector2( 0.55, 0.5 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Texturechateau" type="TextureRect" parent="."]
+margin_left = -1.33484
+margin_top = 210.905
+margin_right = 988.665
+margin_bottom = 874.905
+rect_scale = Vector2( 1.1, 0.8 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureLogoText" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -274.414
+margin_top = -205.108
+margin_right = 271.586
+margin_bottom = -55.1077
+texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -16,24 +53,26 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -199.5
-margin_top = -34.0
-margin_right = 199.5
-margin_bottom = 34.0
+margin_left = -199.0
+margin_top = 28.0
+margin_right = 195.0
+margin_bottom = 96.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ButtonPlay" type="Button" parent="VBoxContainer"]
-margin_right = 399.0
-margin_bottom = 20.0
+margin_right = 394.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
 text = "Play"
 script = ExtResource( 2 )
 
 [node name="ButtonOption" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 399.0
-margin_bottom = 44.0
+margin_top = 54.0
+margin_right = 394.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 0, 40 )
 text = "Option"
 script = ExtResource( 3 )
 __meta__ = {
@@ -41,23 +80,12 @@ __meta__ = {
 }
 
 [node name="ButtonQuit" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 399.0
-margin_bottom = 68.0
+margin_top = 98.0
+margin_right = 394.0
+margin_bottom = 138.0
+rect_min_size = Vector2( 0, 40 )
 text = "Quitter"
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -107.652
-margin_top = 136.671
-margin_right = 111.348
-margin_bottom = 150.671
-text = "Jeu Carcassonne Version 2 joueurs"
 __meta__ = {
 "_edit_use_anchors_": false
 }

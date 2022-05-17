@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/ButtonRetour.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Option.gd" type="Script" id=2]
+[ext_resource path="res://scene/OptionButtonChosePlayer1.gd" type="Script" id=5]
+[ext_resource path="res://scene/OptionButtonChoseDifficulty1.gd" type="Script" id=6]
 
-[node name="Control" type="Control"]
+[node name="OptionControl" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -14,26 +18,82 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -83.5
-margin_top = -22.0
-margin_right = 83.5
-margin_bottom = 22.0
+margin_left = -130.0
+margin_top = -46.0
+margin_right = 130.0
+margin_bottom = 46.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonOption" type="Button" parent="VBoxContainer"]
-margin_right = 173.0
+[node name="OptionJ1" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 260.0
 margin_bottom = 20.0
-text = "no option"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="LabelTypeJ1" type="Label" parent="VBoxContainer/OptionJ1"]
+margin_top = 3.0
+margin_right = 90.0
+margin_bottom = 17.0
+text = "Type Joueur 1 "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButtonChosePlayer1" type="OptionButton" parent="VBoxContainer/OptionJ1"]
+margin_left = 94.0
+margin_right = 169.0
+margin_bottom = 20.0
+text = "TYPE_J1"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButtonChoseDifficulty1" type="OptionButton" parent="VBoxContainer/OptionJ1"]
+margin_left = 173.0
+margin_right = 260.0
+margin_bottom = 20.0
+text = "Difficulté"
+script = ExtResource( 6 )
+
+[node name="OptionJ2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 260.0
+margin_bottom = 44.0
+
+[node name="LabelTypeJ2" type="Label" parent="VBoxContainer/OptionJ2"]
+margin_top = 3.0
+margin_right = 90.0
+margin_bottom = 17.0
+text = "Type Joueur 2 "
+
+[node name="OptionButtonChosePlayer2" type="OptionButton" parent="VBoxContainer/OptionJ2"]
+margin_left = 94.0
+margin_right = 169.0
+margin_bottom = 20.0
+text = "TYPE_J2"
+script = ExtResource( 5 )
+
+[node name="OptionButtonChoseDifficulty2" type="OptionButton" parent="VBoxContainer/OptionJ2"]
+margin_left = 173.0
+margin_right = 260.0
+margin_bottom = 20.0
+text = "Difficulté"
+script = ExtResource( 6 )
+
+[node name="ButtonSave" type="Button" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 260.0
+margin_bottom = 68.0
+text = "sauvegarde des options"
 
 [node name="ButtonRetour" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 173.0
-margin_bottom = 44.0
+margin_top = 72.0
+margin_right = 260.0
+margin_bottom = 92.0
 text = "Retour au menu principal"
 script = ExtResource( 1 )
 __meta__ = {
@@ -51,4 +111,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="item_selected" from="VBoxContainer/OptionJ1/OptionButtonChosePlayer1" to="." method="_on_OptionButtonChosePlayer1_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OptionJ1/OptionButtonChoseDifficulty1" to="." method="_on_OptionButtonChoseDifficulty1_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OptionJ2/OptionButtonChosePlayer2" to="." method="_on_OptionButtonChosePlayer2_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OptionJ2/OptionButtonChoseDifficulty2" to="." method="_on_OptionButtonChoseDifficulty2_item_selected"]
+[connection signal="pressed" from="VBoxContainer/ButtonSave" to="." method="_on_ButtonSave_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonRetour" to="VBoxContainer/ButtonRetour" method="_on_ButtonRetour_pressed"]
