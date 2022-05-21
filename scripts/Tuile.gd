@@ -11,6 +11,7 @@ var element_list : Array
 var element_position 
 var carcassonne
 var id_element = -1 # -1 si rien n'est séléctionné
+var element_coord_global : Array = []
 
 func _ready():
 	position_grille = Vector2(71 + (position.x/255), 71 + ((-position.y)/255))
@@ -23,7 +24,7 @@ func _ready():
 
 func do_rotation():
 	orientation = (orientation + 1) % vector_orientation.size()
-	#print(vector_orientation[orientation])
+	print(vector_orientation[orientation])
 	rotation = 0
 	rotation += ((PI/2) * vector_orientation[orientation])
 
@@ -49,17 +50,44 @@ func afficher_element():
 		element_obj.get_child(0).get_child(1).texture = load("res://asset/emplacement.png")
 		element_obj.get_child(0).set_id(id)
 		element_list.append(element_obj)
+		element_coord_global.append(element_obj.get_child(0).global_position)
 		element_obj.get_child(0).connect("id_send", self, "set_element_id")
 		add_child(element_obj);
 		print(carcassonne.get_points_espere_element(id, 1))
 		id += 1
 
+func get_coord_element_orientation(element_coord):
+	print("orientation =" + str(vector_orientation[orientation]))
+	if vector_orientation[orientation] == 0:
+		var origine = Vector2(-(255/2), (255/2))
+		return Vector2(origine.x + (element_coord.x * 255), origine.y - (element_coord.y  * 255))
+	if vector_orientation[orientation] == 1:
+		var origine = Vector2(-(255/2), -(255/2))
+		return Vector2(origine.x + (element_coord.y * 255), origine.y + (element_coord.x  * 255))
+	if vector_orientation[orientation] == 2:
+		var origine = Vector2((255/2), -(255/2)) 
+		return Vector2(origine.x - (element_coord.x * 255), origine.y + (element_coord.y  * 255))
+	if vector_orientation[orientation] == 3:
+		var origine = Vector2((255/2), (255/2))
+		return Vector2(origine.x - (element_coord.y * 255), origine.y - (element_coord.x * 255))
+
+func poser_meeple_element(id_element, joueur_id):
+	print("poser meeple element")
+	carcassonne.calcul_element_libre()
+	var list_coord = carcassonne.get_coord_element_tuile_pioche()
+	print(list_coord)
+
+	var element_coord = list_coord[id_element]
+	
+	var element_obj = Element2D.instance()
+	var element_coord_scale = get_coord_element_orientation(element_coord)
+	element_obj.get_child(0).connect("id_send", self, "set_element_id")
+	get_tree().get_root().get_child(0).get_node("ViewportContainer/Viewport/Carcassonne").poser_meeple(element_coord_scale + position, joueur_id , carcassonne.get_premier_meeple_indice_libre(joueur_id))
+	carcassonne.poser_meeple(joueur_id, id_element, carcassonne.get_premier_meeple_indice_libre(joueur_id))
+
 func set_element_id(id, position):
 	id_element = id
 	element_position = position
-	#print("Element: ")
-	#print(id)
-	#print(element_position)
 
 func get_element_id():
 	return id_element

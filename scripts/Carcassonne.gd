@@ -70,12 +70,12 @@ func choose_player():
 		if token == 0:
 			if(joueur1.type_joueur == "HUMAIN"):
 				tour_humain(token + 1)
-			if(joueur1.type_joueur == "ROBOT"):
+			elif(joueur1.type_joueur == "ROBOT"):
 				tour_du_robot(token + 1)
-		if token == 1:
+		elif token == 1:
 			if(joueur2.type_joueur == "HUMAIN"):
 				tour_humain(token + 1)
-			if(joueur2.type_joueur == "ROBOT"):
+			elif(joueur2.type_joueur == "ROBOT"):
 				tour_du_robot(token + 1)
 
 func get_nbr_meeple(joueur_id):
@@ -98,39 +98,64 @@ func tour_humain(id):
 	placer_tuile_emplacement_libre()
 	for tuile in obj_tuiles_libre:
 		tuile.connect("tuile_coord", self, "position_tuile") # connection des tuiles à cliquer pour le joueur
+	print("set_mouse")
 	set_icon_mouse()
 
 func tour_du_robot(id):
+	carcassonne.afficher_plateau_tui()
+	# Piocher une tuile
 	piocher_tuile();
+	
+	# Calculer les emplacements libre
 	carcassonne.calcul_emplacement_libre()
 	carcassonne.ia_joue(id)
 	labelJoueur.update_text(id)
-	placer_tuile_emplacement_libre()
+	
+	# Placer les tuiles d'emplacements libre
+	#placer_tuile_emplacement_libre()
+	var coord_tuile = carcassonne.get_joueur_emplacement_choisi(id)
+	
+	# Placer une tuile sur le Plateau
 	var tuile_id = carcassonne.tuile_pioche_id() 
 	var tuile_obj = Tuile2D.instance()
-	print(carcassonne.get_joueur_emplacement_choisi(id))
-	print(obj_tuiles_libre)
 	tuile_obj.get_child(0).get_child(0).texture = load("res://asset/tuiles/" + str(tuile_id) + ".png")
-	var coord_tuile = carcassonne.get_joueur_emplacement_choisi(id)
+	
+	carcassonne.poser_tuile_pioche(coord_tuile[0],coord_tuile[1],coord_tuile[2])
+	
 	var position_de_la_tuile = Vector2(coord_tuile[0],coord_tuile[1])
+	
 	tuile_obj.get_child(0).position = Vector2((71 - position_de_la_tuile.x) * -255, (71 - position_de_la_tuile.y) * 255)
-	print(coord_tuile)
-	print(tuile_obj.get_child(0).position)
 	tuile_obj.get_node("ButtonRotation").hide()
 	tuile_obj.get_node("ButtonValiderTuile").hide()
+	
 	add_child(tuile_obj)
-	print(tuile_obj.get_child(0).do_rotation())
-	while(tuile_obj.get_child(0).vector_orientation[tuile_obj.get_child(0).orientation] != coord_tuile[2]):
+	
+	print(carcassonne.get_coord_emplacement_libre());
+	
+	print(coord_tuile[0])
+	print(coord_tuile[1])
+	print(coord_tuile[2])
+	print(tuile_obj.get_child(0).vector_orientation[tuile_obj.get_child(0).orientation])
+	
+	for itr in range(0,3):
+		if tuile_obj.get_child(0).vector_orientation[itr] == coord_tuile[2]:
+			print(tuile_obj.get_child(0).vector_orientation[itr])
+			break;
 		tuile_obj.get_child(0).do_rotation()
+
 	print(tuile_obj.get_child(0).vector_orientation)
-	#print(tuile_obj.position)
+	
 	for tuile in obj_tuiles_libre:
 		remove_child(tuile.get_parent())
+	
 	obj_tuiles_libre.clear()
+	
+	if(carcassonne.get_joueur_si_placer_meeple(id)):
+		print("robot a choisie = " + str(carcassonne.get_joueur_element_choisi(id)))
+		var id_emplacement = carcassonne.get_joueur_element_choisi(id)
+		tuile_obj.get_child(0).poser_meeple_element(id_emplacement,id)
+	
 	fin_tour_joueur()
-
-func objet_tuile_position_indice(obj_tuiles_libre, indice):
-	pass
 
 func set_icon_mouse():
 	tuileicon = TuileIcon2D.instance()
@@ -141,14 +166,8 @@ func unset_icon_mouse():
 	remove_child(tuileicon)
 
 func fin_tour_joueur():
-	print("liste meeple")
-	print(carcassonne.get_meeple_pose_array(1))
-	
 	print("evaluation")
 	carcassonne.evaluation_points_meeple()
-	
-	print("liste_meeple")
-	print(carcassonne.get_meeple_pose_array(1))
 	
 	print("update list")
 	update_meeple_list(1)
@@ -162,7 +181,9 @@ func fin_tour_robot():
 
 func position_tuile(obj):
 	#print(obj.position)
-	unset_icon_mouse()
+	if(get_joueur(self.get_joueur_courant()).type_joueur == "HUMAIN"):
+		print("unset_mouse")
+		unset_icon_mouse()
 	var tuile_id = carcassonne.tuile_pioche_id() 
 	var tuile_obj = Tuile2D.instance()
 	tuile_obj.get_child(0).get_child(0).texture = load("res://asset/tuiles/" + str(tuile_id) + ".png")
@@ -204,7 +225,7 @@ func placer_tuile_emplacement_libre():
 		obj_tuiles_libre.append(tuile)
 
 func poser_meeple(coord : Vector2, joueur_id, indice_tableau):
-	print("poser meeple" + str(joueur_id))
+	print("poser meeple " + str(joueur_id))
 	var meeple_obj = Meeple2D.instance()
 	meeple_obj.get_node("MeepleSprite").set_texture_meeple(joueur_id)
 	meeple_obj.position = coord
