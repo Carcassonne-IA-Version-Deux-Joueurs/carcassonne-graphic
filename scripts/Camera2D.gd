@@ -7,6 +7,7 @@ var target_zoom = Vector2(1,1)
 func _ready():
 	current = true
 	target_position = Vector2(0,0);
+	self.zoom = Vector2(4,4)
 
 func set_target_zoom(target_entry_zoom):
 	self.target_zoom = target_entry_zoom

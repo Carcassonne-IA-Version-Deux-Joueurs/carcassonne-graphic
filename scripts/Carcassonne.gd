@@ -102,6 +102,7 @@ func tour_humain(id):
 	set_icon_mouse()
 
 func tour_du_robot(id):
+	yield(get_tree().create_timer(0.1), "timeout")
 	carcassonne.afficher_plateau_tui()
 	# Piocher une tuile
 	piocher_tuile();
@@ -149,11 +150,11 @@ func tour_du_robot(id):
 		remove_child(tuile.get_parent())
 	
 	obj_tuiles_libre.clear()
-	
-	if(carcassonne.get_joueur_si_placer_meeple(id)):
-		print("robot a choisie = " + str(carcassonne.get_joueur_element_choisi(id)))
-		var id_emplacement = carcassonne.get_joueur_element_choisi(id)
-		tuile_obj.get_child(0).poser_meeple_element(id_emplacement,id)
+	if(carcassonne.get_nbr_pion_joueur(id)):
+		if(carcassonne.get_joueur_si_placer_meeple(id)):
+			print("robot a choisie = " + str(carcassonne.get_joueur_element_choisi(id)))
+			var id_emplacement = carcassonne.get_joueur_element_choisi(id)
+			tuile_obj.get_child(0).poser_meeple_element(id_emplacement,id)
 	
 	fin_tour_joueur()
 

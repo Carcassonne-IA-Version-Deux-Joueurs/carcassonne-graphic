@@ -197,9 +197,10 @@ __meta__ = {
 }
 
 [node name="LabelTypeJ2" type="Label" parent="HeadBand/HeadBandText"]
-margin_top = 1.0
-margin_right = 25.0
-margin_bottom = 15.0
+margin_left = 0.33371
+margin_top = 18.0192
+margin_right = 25.3337
+margin_bottom = 32.0192
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "test"
@@ -209,9 +210,10 @@ __meta__ = {
 }
 
 [node name="LabelTypeJ1" type="Label" parent="HeadBand/HeadBandText"]
-margin_top = 18.0
-margin_right = 25.0
-margin_bottom = 32.0
+margin_left = 0.667419
+margin_top = 0.647076
+margin_right = 25.6674
+margin_bottom = 14.6471
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "test"

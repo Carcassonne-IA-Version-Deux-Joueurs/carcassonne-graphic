@@ -1,8 +1,8 @@
 extends Label
 
-var static_text = "Joueur En Tête: "
+var static_text = "Joueur Gagant: "
 
-var etat_text = ["égalité", "joueur 1", "joueur 2"]
+var etat_text = ["égalité", "j 1", "j 2"]
 
 func _on_ready():
 	text = static_text
